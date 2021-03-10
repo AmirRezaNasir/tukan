@@ -1,0 +1,42 @@
+{% extends 'shop/list.html' %}
+
+{% load base_tags %}
+
+
+{% block slider %}
+{% endblock %}
+
+
+
+
+
+{% block header %}
+{% endblock %}
+
+
+{% block previous_page_url %}
+	{% url 'shop:author' author.username page_obj.previous_page_number %}
+{% endblock %}
+
+
+{% block next_page_url %}
+	{% url 'shop:author' author.username page_obj.next_page_number %}
+{% endblock %}
+
+{% block number_page %}
+	{% url 'shop:author' author.username %}
+{% endblock %}
+
+
+{% block in_page1 %}
+	{% url 'shop:author' author.username %}
+{% endblock %}
+{% block in_page2 %}
+	{% url 'shop:author' author.username %}
+{% endblock %}
+
+
+{% block category_items %}
+	{% category_navbar %}
+{% endblock %}
+<!-- نکته : این جا نباید کتهگوری نشون بده باید خلاصه ای از رزمه رو نشون بده که بعدا باید بسازمش !  -->

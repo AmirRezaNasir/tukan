@@ -1,0 +1,134 @@
+{% extends 'registration/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}لیست پروژه ها{% endblock %}
+
+{% block main %}
+        <div class="row">
+          <div class="col-md-3">
+
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle"
+                       src="{% static 'registration/adminlte/assets/img/user4-128x128.jpg' %}"
+                       alt="User profile picture">
+                </div>
+
+                <h3 class="profile-username text-center">{{user.get_full_name}}</h3>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+
+            <!-- About Me Box -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">منه گوره</h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> اوخودوخلار</strong>
+
+                <p class="text-muted">
+                {{request.user.Education|safe}}
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i>زندگانخ يري</strong>
+
+                
+                <p class="text-muted">{{request.user.location|safe}}</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> باشاردخلار</strong>
+
+                <p class="text-muted">
+                {{request.user.skills|safe}}
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> سوز</strong>
+
+                
+                <p class="text-muted">{{request.user.notes|safe}}</p>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">ايشلر</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">تنظامات</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="activity">
+                    <!-- Post -->
+                    <p>test</p>
+                    <!-- /.post -->
+                  </div>
+                  <div class="tab-pane" id="settings">
+                    <form class="form-horizontal" form method="post" enctype="multipart/form-dat>">
+                    {% csrf_token %}
+                      <div class="row">
+                        <div class="col-6">
+                          {{ form.username|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.email|as_crispy_field }}
+                        </div>
+                        <div class="container">
+                          {{ form.phone_number|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.skills|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.Education|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.location|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.notes|as_crispy_field }}
+                        </div>                        
+                        <div class="col-6">
+                          {{ form.first_name|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.last_name|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.special_user|as_crispy_field }}
+                        </div>
+                        <div class="col-6">
+                          {{ form.is_author|as_crispy_field }}
+                        </div>
+                      </div>
+                      <button class="btn btn-success">ویرایش اطلاعات</button>
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.nav-tabs-custom -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+{% endblock %}

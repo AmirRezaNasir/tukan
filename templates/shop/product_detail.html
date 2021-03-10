@@ -1,0 +1,51 @@
+{% extends 'shop/base.html' %}
+
+{% load base_tags %}
+
+
+{% load static %}
+
+{% load humanize %}
+
+
+{% block main %}
+{% category_navbar %}
+
+<!-- {% block title %} {{object.title}} {% endblock %} -->
+
+
+      <div class="col-lg-9">
+
+        <div class="card mt-4">
+          <img class="card-img-top" src="{{product.thumbnail.url}}" alt="{{object.title}}" height="700px">
+          <div class="card-body">
+            <h3 class="card-title">{{object.title}}</h3>
+            <h4>{{object.price}}</h4>
+            <div class="text-justify">
+            <p class="card-text">{{object.description|safe|linebreaks}}</p>
+            </div>
+             <div> 
+              <time>{{object.publish|naturaltime}}</tim>
+                <!-- این خط کد بالایی عدد رو درست نشون نمیده بهتره پرسیده شود  -->
+            </div>
+            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
+            4.0 stars
+          </div>
+        </div>
+        <!-- /.card -->
+<!-- کامنت ها  -->
+        <div class="card card-outline-secondary my-4">
+          <div class="card-header">
+            نظرات شما 
+          </div>
+          <div class="card-body">
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
+            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
+            <hr>
+            <a href="#" class="btn btn-success">شما هم یک دیدگاه بگذارید</a>
+          </div>
+        </div>
+        <!-- /.card -->
+
+      </div>
+{% endblock %}

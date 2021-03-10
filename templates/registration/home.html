@@ -1,0 +1,15 @@
+{% extends 'registration/base.html' %}
+{% block title %}{% block title-meta %}
+صفحه اول  
+{% endblock %}{% endblock %}
+{% block main %}
+	{% if user.is_author or user.is_superuser %}
+		<p>فعلا چیزی نی خوش باش </p>
+
+
+
+		<!-- ×××× -->
+	{% else %}
+		<p>سلام عليکم ن خبر يولداش نجسن </p>
+	{% endif %}
+{% endblock %}

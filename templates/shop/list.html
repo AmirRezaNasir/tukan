@@ -1,0 +1,81 @@
+{% extends 'shop/base.html' %}
+{% load base_tags %}
+
+
+{% load static %}
+
+{% load humanize %}
+
+
+{% block main %}
+
+
+{% block category_items %}
+{% endblock %}
+      <!-- /.col-lg-3 -->
+<!-- اسلاد عکس ها  -->
+
+      <div class="col-lg-9"><br>
+
+        {% block slider %}
+        {% endblock %}
+        {% block header %}{% endblock %}
+        <div class="row">
+
+<!-- خود پست ها  -->
+          {% for product in object_list %}
+          <div class="col-lg-6 col-md-6 mb-4">
+            <div class="card h-100">
+              <img class="card-img-top" src="{{product.thumbnail.url}}" alt="{{product.title}}"height="400px" >
+              <div class="card-body text-justify">
+                <h4 class="card-title">
+                  <a href="{% url 'shop:productDetail' product.slug %}">{{product.title}}</a>
+                </h4>
+                <h5>{{product.price|intword}}</h5>
+                <p class="card-text">{{product.short_explanation|striptags|truncatewords:23}}</p>
+              </div>
+              <div class="card-footer">
+                <time>{{product.publish|naturaltime}}</tim>
+                <small class="text-muted" >&#9733; &#9733; &#9734; &#9734; &#9734;</small>
+                <hr><a href="{% url 'shop:author' product.author %}">{{product.author}}</a>
+                
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+        </div>
+        <!-- /.row -->
+<!-- pagination  -->
+      </div>
+      <div class="clearfix pager-botton" style="margin-right: 48%">
+        {% if page_obj.has_previous %}
+           <a class="btn btn-dark float-right ml-3" style="padding-left: 50px" href="{% block previous_page_url %}{% endblock %}"> صفحه قبلی &rarr;</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+          <a class="btn btn-dark float-right" style="padding-right: 50px" href="{% block next_page_url %}{% endblock %}"> صفحه بعدی &larr;</a>
+        {% endif %}<br>
+        {% if page_obj.has_previous %}        
+        <a class="btn btn-outline-dark" href="{% block in_page1 %}{% endblock %}page/1">صفحه اول</a>
+        {% endif %}
+        {% if page_obj.has_next %}
+        <a class="btn btn-outline-dark" href="{% block in_page2 %}{% endblock %}page/{{page_obj.paginator.num_pages}}">صفحه آخر</a>
+        {% endif %}
+        <hr>
+        <span class="current badge badge-pill badge-secondary" style="margin-right: 35%">
+          {% for num in page_obj.paginator.page_range  %}
+          <a class="btn" href="{% block number_page %}{% endblock %}page/{{num}}">{{num}}</a>
+          {% endfor %}   
+        </span><hr>
+<!-- end pagination  -->
+      </div>
+      </div>
+      <!-- /.col-lg-9 -->
+
+    </div>
+    <!-- /.row -- >
+
+  </div>
+<!-- نکته ! من اين ديو ها رو دستکاري کردم پس به اين کامنت هاي انگلي
+اعتمادي نيست ! يعني زياد نيست  -->
+{% endblock %}
