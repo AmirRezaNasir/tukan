@@ -1,0 +1,75 @@
+{% extends 'registration/base.html' %}
+{% load humanize %}
+
+{% block title %}لیست پروژه ها{% endblock %}
+
+{% block main %}
+<div class="row">
+		  <div class="col-12">
+			<div class="card">
+			  <div class="card-header">
+				<h3 class="card-title">سودین ایشی گوی</h3>
+
+				<div class="card-tools">
+				  <div class="input-group input-group-sm" style="width: 150px;">
+					<input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+
+					<div class="input-group-append">
+					  <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
+					</div>
+				  </div>
+				</div>
+			  </div>
+			  <!-- /.card-header -->
+			  <div class="card-body table-responsive p-0">
+				<table class="table table-hover">
+				  <thead>
+					<tr>
+					  <th>وضعیت</th>
+					  <th>تعویض وضعیت</th>
+					  <th>محصول</th>
+					  <th>نویسنده</th>
+					  <th>متن</th>
+					</tr>
+				  </thead>
+				  <tbody>
+					{% for cmt in object_list %}
+						<tr>
+
+							<td>
+								{% if cmt.status %}
+	                              <i class="fa fa-check-circle" style="color: green"></i>
+	                            {% else %}
+	                              <i class="fa fa-minus-circle" style="color: red"></i>
+	                            {% endif %}
+								</td>
+							<td>
+								{% if cmt.status %}
+									<a href="{% url 'account:update-comment' cmt.id %}"><i class="fas fa-toggle-on" style=" font-size:25px; color: green">
+									</i></a>
+								{% else %}
+									<a href="{% url 'account:update-comment' cmt.id %}"><i class="fas fa-toggle-off" style=" font-size: 25px; color: red"></i></a>
+								{% endif %}
+							</td>
+							<td>
+								{{cmt.product}}
+							</td>
+							<td>
+								{{cmt.name}}
+							</td>
+							<td>
+								{{cmt.body|safe|truncatewords:23}}
+							</td>
+
+						</tr>
+
+					{% endfor %}
+				  </tbody>
+				</table>
+			  </div>
+			  <!-- /.card-body -->
+			</div>
+			<!-- /.card -->
+		  </div>
+		</div>
+{% endblock %}

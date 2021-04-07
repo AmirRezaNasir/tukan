@@ -8,8 +8,7 @@ class FieldsMixin():
 		if request.user.is_superuser:
 			self.fields.extend(["author","phone_number","email"])
 		return super().dispatch(request, *args, **kwargs)
-# phone_number
-# email
+
 
 class FormValidMixin():
 	def form_valid(self, form):
@@ -50,4 +49,6 @@ class AuthorsAccessMixin():
 			else:
 				return redirect("account:profile")
 		else:
-			return redirect("account:login")
+			return redirect("login")
+
+

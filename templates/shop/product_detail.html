@@ -11,8 +11,10 @@
 {% block main %}
 {% category_navbar %}
 
-<!-- {% block title %} {{object.title}} {% endblock %} -->
+{% load ratings %}
+{% load crispy_forms_tags %}
 
+<!-- {% block title %} {{object.title}} {% endblock %} -->
 
       <div class="col-lg-9">
 
@@ -28,24 +30,38 @@
               <time>{{object.publish|naturaltime}}</tim>
                 <!-- این خط کد بالایی عدد رو درست نشون نمیده بهتره پرسیده شود  -->
             </div>
-            <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-            4.0 stars
+            <span class="text-warning">{% ratings object %}</span>
           </div>
         </div>
         <!-- /.card -->
-<!-- کامنت ها  -->
+<!-- کامنت ها  -->       
+
         <div class="card card-outline-secondary my-4">
           <div class="card-header">
-            نظرات شما 
+            دیدگاه ها   
           </div>
           <div class="card-body">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-            <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-            <hr>
-            <a href="#" class="btn btn-success">شما هم یک دیدگاه بگذارید</a>
-          </div>
-        </div>
-        <!-- /.card -->
+            {% for  cmt in comments %}
+              <p>{{cmt.name}} در <time>{{cmt.created_on |naturaltime }}</time> گفته است : </p>
+              <p> &emsp; {{cmt.body}}</p>
+              
+              <hr style="margin-top: 4px">
+            {% endfor %}
+            {% if user.is_authenticated %}
+              <form method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                  <p style="color: #4535fc" >دیدگاه خود را به اشتراک بگذارید</p>
+                  {{ comment_form | crispy }}
+                <button class="btn btn-info" type="submit">فرستادن<i class="fas fa-comments"></i></button>
+                </div>
+              </form>
+            {% else %}
 
+              <p style="margin-right: 25%" > برای به اشتراک گذاری دیدگاه خود ابتدا <a href="{% url 'login' %}">وارد</a> شوید </p>
+
+            {% endif %}
+        </div>
+        </div>
       </div>
 {% endblock %}

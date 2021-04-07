@@ -18,7 +18,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 LOGIN_REDIRECT_URL = "account:home"
-LOGIN_URL = "account:login"
+LOGIN_URL = "login"
 # LOGOUT_REDIRECT_URL = "account:login"
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -46,6 +46,8 @@ INSTALLED_APPS = [
     'django.contrib.humanize',
     'widget_tweaks',
     'crispy_forms',
+    'django_gravatar',
+    'star_ratings',
     
 ]
 
@@ -137,3 +139,19 @@ CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 AUTH_USER_MODEL = 'account.User'
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'amirrezanasiri830@gmail.com'
+EMAIL_HOST_PASSWORD = '09906475856'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
+
+STAR_RATINGS_RERATE = True
+STAR_RATINGS_ANONYMOUS = False
+STAR_RATINGS_STAR_HEIGHT = 25
+STAR_RATINGS_RANGE = 7

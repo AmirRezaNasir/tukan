@@ -1,7 +1,9 @@
+from django.http import HttpResponse
 from django.shortcuts import render ,get_object_or_404
 from django.views.generic import ListView, DetailView
 from account.mixins import AuthorAccessMixin
-from .models import Product,Category
+from .models import Product,Category,Comment
+from .forms import CommentForm
 from account.models import User
 
 
@@ -11,10 +13,27 @@ class ProductList(ListView):
 	queryset = Product.objects.published()
 
 class ProductDetail(DetailView):
+
+
 	def get_object(self):
 		slug = self.kwargs.get('slug')
 		product = get_object_or_404(Product.objects.published(), slug=slug)
 		return product
+
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = Comment.objects.filter(product=self.object,status=1)
+		if self.request.user.is_authenticated:
+			context['comment_form'] = CommentForm(instance=self.request.user)
+		return context
+
+	def post(self, request, *args, **kwargs):
+		new_comment = Comment(body=request.POST.get('body'),name=self.request.user,product=self.get_object())
+		new_comment.save()
+		return self.get(self, request, *args, **kwargs)
+
+
 
 class ProductPreview(AuthorAccessMixin, DetailView):
 	def get_object(self):
@@ -26,11 +45,13 @@ class CategoryList(ListView):
 	paginate_by = 2
 	template_name = 'shop/category_list.html'
 
+
 	def get_queryset(self):
 		global category
 		slug = self.kwargs.get('slug')
 		category = get_object_or_404(Category.objects.active(), slug=slug)
 		return category.products.published()
+
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
@@ -42,11 +63,13 @@ class AuthorList(ListView):
 	paginate_by = 5
 	template_name = 'shop/author_list.html'
 
+
 	def get_queryset(self):
 		global author
 		username = self.kwargs.get('username')
 		author = get_object_or_404(User, username=username)
 		return author.products.published()
+
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)

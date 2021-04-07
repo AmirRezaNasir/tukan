@@ -32,6 +32,7 @@ class Category(models.Model):
 	objects = CategoryManager()
 
 
+
 class Product(models.Model):
 	B_LANGUAGE_CHOICES=(
 		('PYTHON_DJANGO','پايتون - جنگو'),
@@ -77,7 +78,7 @@ class Product(models.Model):
 	phone_number  =  models.IntegerField(verbose_name='شماره تلفن')
 	email  =  models.EmailField(max_length=254,verbose_name='ايميل')
 	is_special  =  models.BooleanField(default=False, verbose_name="مقاله ویژه")
-	# comments = GenericRelation(Comment)
+
 	# hits = models.ManyToManyField(IPAddress,through="ArticleHit", blank=True, related_name="hits", verbose_name="بازدیدها")
 	class Meta:
 		verbose_name = "افزودن"
@@ -90,4 +91,16 @@ class Product(models.Model):
 		return ", ".join([category.title for category in self.category.active()])
 
 	objects = ProductManager()
-	
+
+class Comment(models.Model):
+    product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comments')
+    name = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField(verbose_name='بدنه دیدگاه ')
+    created_on = models.DateTimeField(auto_now_add=True)
+    status = models.BooleanField(default=False)
+
+    class Meta:
+        ordering = ['status','created_on']
+
+    def __str__(self):
+        return 'Comment {} by {}'.format(self.body, self.name)

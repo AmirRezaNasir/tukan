@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product,Category
+from .models import Product,Category,Comment
 # Register your models here.
 
 
@@ -24,3 +24,15 @@ class ProductAdmin(admin.ModelAdmin):
 admin.site.register(Product,ProductAdmin)
 
 
+
+class CommentAdmin(admin.ModelAdmin):
+	list_display = ('body', 'created_on', 'status')
+	list_filter = ('status', 'created_on')
+	search_fields = ('body',)
+	actions = ['approve_comments']
+	list_editable = ['status']
+
+
+	def approve_comments(self, request, queryset):
+		queryset.update(status=True)       
+admin.site.register(Comment,CommentAdmin)

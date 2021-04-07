@@ -10,6 +10,7 @@ def one_day_hence():
 
 # Create your models here.
 class User(AbstractUser):
+	email = models.EmailField(unique=True, verbose_name='ایمیل')
 	notes  =  models.TextField(default='خوش باشيد' , max_length= 200,verbose_name='حرف براي گفتن')
 	Education  =  models.TextField(default='خود پرورش داده شده ' , max_length= 200,verbose_name='تحصيلات')
 	location  =  models.TextField(default='بدون ادرس' , max_length= 200,verbose_name='ادرس ')
@@ -19,7 +20,7 @@ class User(AbstractUser):
 	special_user  =  models.DateTimeField(default=timezone.now, verbose_name="کاربر ویژه تا")
 	Guest_user  =  models.DateTimeField(default=one_day_hence, verbose_name="کاربر مهمان تا")
 	Free_user  =   models.BooleanField(default=False, verbose_name="کاربر آزاد")
-	Important_user  =   models.BooleanField(default=False, verbose_name="کاربر مهم ")
+	Important_user  =   models.BooleanField(default=False, verbose_name="کاربر مهم ") #for activate comments
 
 
 	def is_special_user(self):
