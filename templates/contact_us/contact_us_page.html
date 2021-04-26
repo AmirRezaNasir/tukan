@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Contact Form</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'contact/contact.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div class="image">
+        <img src="{% static 'contact/images/design.svg' %}">
+    </div>
+    <div class="box">
+        <div class="img">
+            <img src="{% static 'contact/images/m-avatar.svg' %}">
+        </div>
+        <h2>Contact Us</h2>
+        <form method="post">
+            {% csrf_token %}
+
+            <div>
+                {{ contact_form.full_name }}
+                {% for error in contact_form.full_name.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ contact_form.email }}
+                {% for error in contact_form.email.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ contact_form.subject }}
+                {% for error in contact_form.subject.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            <div>
+                {{ contact_form.text }}
+                {% for error in contact_form.text.errors %}
+                    <p>{{ error }}</p>
+                {% endfor %}
+            </div>
+            <!-- <a href="#">Submit</a> -->
+            <input type="submit"  name="" value="submit" class="btn">
+        </form>
+    </div>
+</body>
+</html>

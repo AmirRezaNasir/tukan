@@ -37,19 +37,22 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                {% link request 'list' 'پروژه لري گورماخ ' 'fa-list' %}
+                {% link request 'account' 'list' 'پروژه لري گورماخ ' 'fa-list' %}
               </li>
               <li class="nav-item">
-                {% link request 'product-create' 'پروژه جويلماخ' 'fa-edit' %}
+                {% link request 'account' 'product-create' 'پروژه جويلماخ' 'fa-edit' %}
               </li>
               <li class="nav-item">
-                {% link request 'comments' 'کامنتلر' 'fas fa-comments' %}
+                {% link request 'account' 'comments' 'کامنتلر' 'fas fa-comments' %}
               </li>
             </ul>
           </li>
           {% endif %}
           <li class="nav-item">
-            {% link request 'profile' 'پروفایل' 'fas fa-th' %}
+            {% link request 'account' 'profile' 'پروفایل' 'fas fa-th' %}
+          </li>
+          <li class="nav-item">
+            {% link request 'cart' 'user-cart' 'سبد خرید' 'fa fa-shopping-cart' %}
           </li>
         </ul>
       </nav>

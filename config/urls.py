@@ -19,12 +19,15 @@ from account.views import Login,Register,activate
 
 urlpatterns = [
     path('',include('shop.urls')),
+    path('cart/',include('cart.urls')),
+    path('contact/',include('contact.urls')),
+    path('account/', include('account.urls')),
+    path('about/', include('site_config.urls')),
     path('',include('django.contrib.auth.urls')),
     path('login/', Login.as_view(), name='login'),
     path('register/', Register.as_view(), name='register'),
     re_path(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,120})/$', activate, name='activate'),
     path('admin/', admin.site.urls),
-    path('account/', include('account.urls')),
     re_path(r'^ratings/', include('star_ratings.urls', namespace='ratings')),
 ]
 

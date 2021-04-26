@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+
+
+<meta charset="UTF-8">
+<title>about</title>
+
+<link rel="stylesheet" type="text/css" href="{% static 'about_me/css/about-style.css' %}">
+
+</head>
+<body>
+
+<div class="container">
+<!-- Team members structure start -->
+	<div class="team-members row">
+		<!-- effect-1 html -->
+		<div class="single-member effect-1">
+			<div class="member-image">
+				<img src="{% static 'about_me/images/about-me.PNG' %}" alt="Member">
+			</div>
+			<div class="member-info">
+				<h3>در باره من</h3>
+				<h5>About me</h5>
+				<p>{{setting.about_us}}</p>
+			</div>
+		</div>
+		<!-- effect-1 html end -->
+
+		<!-- effect-2 html -->
+		<div class="single-member effect-2">
+			<div class="member-image">
+				<img src="{% static 'about_me/images/about-site.jpg' %}" alt="Member">
+			</div>
+			<div class="member-info">
+				<h3>این سایت</h3>
+				<h5>This site</h5>
+				<p>{{setting.about_site}}</p>
+
+			</div>
+		</div>
+		<!-- effect-2 html end -->
+
+		<!-- effect-3 html -->
+		<div class="single-member effect-3">
+			<div class="member-image">
+				<img src="{% static 'about_me/images/contact-me.jpg' %}" alt="Member">
+			</div>
+			<div class="member-info">
+				<h3>تماس با من </h3>
+				<h5>Contact me</h5>
+				<ul>
+					<li>GitHub：<a href="{{setting.gitgub_address}}">AmirReza</a></li>
+					<li>Email：<samp style="color: #166f9c">{{setting.email}}</samp></li>
+					<li>Telegram：<a href="{{setting.tel_address}}">@amirreza830</a></li>
+					<li>Instagram：<a href="{{setting.insta_address}}">@amirre830</a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- effect-3 html end -->
+	</div>
+<!-- Team members structure start -->
+</div>
+
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends 'registration/base.html' %}
+
+{% load static %}
+{% load crispy_forms_tags %}
+{% load humanize %}
+
+
+{% block title %}لیست پروژه ها{% endblock %}
+
+{% block main %}
+
+	<div class="tab-pane" id="cart">
+	{% if cart != None and details|length > 0 %}
+		<!---->
+			<div class="col-12 table-responsive">
+			  <table class="table table-striped">
+				<thead>
+				<tr>
+				  <th>عنوان</th>
+				  <th>توضیحات</th>
+				  <th>قیمت</th>
+				  <th>تعداد</th>
+				  <th>مبلغ قابل پرداخت</th>
+				  <th>حذف سبد</th>
+				</tr>
+				</thead>
+				{% for detail in details %}
+					<tbody>
+					<tr>
+					  <td>{{ detail.product.title }}</td>
+					  <td>{{ detail.product.description|safe }}</td>
+					  <td>{{ detail.product.price|intword }} ریال </td>
+					  <td>{{ detail.count }}</td>
+					  <td>{{ detail.get_detail_sum |intword}} ریال </td>
+					  <td><a target="_blank" class="badge badge-secondary" href="{% url 'cart:remove-cart' detail.id %}">حذف</a></td>
+					</tr>
+					</tbody>
+				{% endfor %}
+			  	</table>
+			</div>
+	<div class="alert alert-success" role="alert">
+	  <h4 class="alert-heading">نهایی کردن خرید!</h4>
+	  <p>شما میتوانید خرید خود را با پرداخت مبلغ محصول تمکیل کنید و یا میتوانید همچنان به ادامه تکمیل سبد خرید خود بپردازید .</p>
+	</div>
+
+	<div class="alert alert-warning" role="alert">
+	  <p class="mb-0">توجه داشته باشید ممکن است فروشنده محصول انتخابی خود اقدام به افزایش قیمت محصول بکند و یا محصول انتخابی شما ناموجود شود .</p>
+	</div>
+
+	<div>
+		<ul>
+			<li>مجموع سبد خرید :<span>{{total}} ریال </span></li>
+			<li>هر هزینه ایی که از یادم رفته :<span> رایگان</span></li>
+		</ul>
+		<a class="btn btn-info btn-lg btn-block" href="#">پرداخت </a>
+	</div>
+		<!---->
+	{% else %}
+	  <div class="alert alert-warning">
+		  <p>هیچ محصولی در سبد خرید شما یافت نشد</p>
+	  </div>
+	{% endif %}                   
+	</div>
+
+
+{% endblock %}

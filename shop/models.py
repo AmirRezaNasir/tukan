@@ -11,6 +11,14 @@ class ProductManager(models.Manager):
 	def published(self):
 		return self.filter(status='p')
 
+
+	def get_by_id(self, product_id):
+		qs = self.get_queryset().filter(id=product_id)
+		if qs.count() == 1:
+			return qs.first()
+		else:
+			return None
+
 class CategoryManager(models.Manager):
 	def active(self):
 		return self.filter(status=True)
@@ -31,6 +39,9 @@ class Category(models.Model):
 		return self.title
 	objects = CategoryManager()
 
+
+class IPAddress(models.Model):
+	ip_address = models.GenericIPAddressField(verbose_name="آدرس آی‌پی")
 
 
 class Product(models.Model):
@@ -77,20 +88,24 @@ class Product(models.Model):
 	price  =  models.IntegerField(verbose_name='قيمت')
 	phone_number  =  models.IntegerField(verbose_name='شماره تلفن')
 	email  =  models.EmailField(max_length=254,verbose_name='ايميل')
-	is_special  =  models.BooleanField(default=False, verbose_name="مقاله ویژه")
+	is_special  =  models.BooleanField(default=False, verbose_name="مقاله ویژه")	
+	hits = models.ManyToManyField(IPAddress, blank=True, through="ProductHit", related_name="hits", verbose_name="بازدیدها")
 
-	# hits = models.ManyToManyField(IPAddress,through="ArticleHit", blank=True, related_name="hits", verbose_name="بازدیدها")
 	class Meta:
 		verbose_name = "افزودن"
 		verbose_name_plural = "ليست پروژه ها "
 		ordering = ['-publish']
+
+
 	def __str__(self):
 		return self.title
+
 
 	def Category_to_str(self):
 		return ", ".join([category.title for category in self.category.active()])
 
 	objects = ProductManager()
+
 
 class Comment(models.Model):
     product = models.ForeignKey(Product,on_delete=models.CASCADE,related_name='comments')
@@ -99,8 +114,18 @@ class Comment(models.Model):
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.BooleanField(default=False)
 
+
     class Meta:
-        ordering = ['status','created_on']
+        ordering = ['status','-created_on']
+
 
     def __str__(self):
         return 'Comment {} by {}'.format(self.body, self.name)
+
+
+
+
+class ProductHit(models.Model):
+	product = models.ForeignKey(Product, on_delete=models.CASCADE)
+	ip_address = models.ForeignKey(IPAddress, on_delete=models.CASCADE)
+	created = models.DateTimeField(auto_now_add=True)

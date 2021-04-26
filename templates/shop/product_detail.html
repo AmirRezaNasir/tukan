@@ -9,8 +9,11 @@
 
 
 {% block main %}
-{% category_navbar %}
 
+<div class="col-lg-3">
+  {% category_navbar %}
+  {% popular_products %}
+</div>
 {% load ratings %}
 {% load crispy_forms_tags %}
 
@@ -24,9 +27,25 @@
             <h3 class="card-title">{{object.title}}</h3>
             <h4>{{object.price}}</h4>
             <div class="text-justify">
-            <p class="card-text">{{object.description|safe|linebreaks}}</p>
+              <p class="card-text">{{object.description|safe|linebreaks}}</p>
             </div>
-             <div> 
+            <div>
+              <form method="POST" action="/cart/add-user-cart">
+                {% csrf_token %}
+                {{cart_form.product_id}}
+                <label>تعداد :</label>
+                {{ cart_form.count }}
+                <!-- من به این باتن یه اسم دادم به علت وجود دو تا فرم 
+                و استفاده از شرط در ویو سبد خرید  -->
+                <button name="cart_form" type="submit" class="btn  btn-outline-secondary" >
+                  <i class="fa fa-shopping-cart"></i>
+                  افزودن به سبد خرید
+                </button>
+              </form>
+            </div>
+             <div>
+              {{object.f_language}}
+              {{object.b_language}}
               <time>{{object.publish|naturaltime}}</tim>
                 <!-- این خط کد بالایی عدد رو درست نشون نمیده بهتره پرسیده شود  -->
             </div>
@@ -53,7 +72,10 @@
                 <div class="form-group">
                   <p style="color: #4535fc" >دیدگاه خود را به اشتراک بگذارید</p>
                   {{ comment_form | crispy }}
-                <button class="btn btn-info" type="submit">فرستادن<i class="fas fa-comments"></i></button>
+                  <!-- من به این باتن یه اسم دادم به علت وجود دو تا فرم در صفحه و استفاده از شرط که انگاری مشکلی نبود و حل شد و نیازی بهش نشد 
+                  ولی تو بالا مثل این که فایده داشته باشه یا نداشته باشه 
+                  ازش استفاده شده صرفا جهت اطلاع  -->
+                <button name="comment_form" class="btn btn-info" type="submit">فرستادن<i class="fas fa-comments"></i></button>
                 </div>
               </form>
             {% else %}

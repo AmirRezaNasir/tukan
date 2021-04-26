@@ -51,6 +51,10 @@
 	{% url 'shop:productList' %}
 {% endblock %}
 
+{% block search_1 %}{% endblock %}
+{% block search_2 %}{% endblock %}
+{% block search_3 %}{% endblock %}
+
 
 
 {% block in_page1 %}
@@ -63,4 +67,8 @@
 
 {% block category_items %}
 	{% category_navbar %}
+{% endblock %}
+
+{% block sidebar_items %}
+	{% popular_products %}
 {% endblock %}

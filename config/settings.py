@@ -17,6 +17,8 @@ import os
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+#------------***login and logup config***----------------
+
 LOGIN_REDIRECT_URL = "account:home"
 LOGIN_URL = "login"
 # LOGOUT_REDIRECT_URL = "account:login"
@@ -42,7 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'shop.apps.ShopConfig',
+    'cart.apps.CartConfig',
     'account.apps.AccountConfig',
+    'site_config.apps.SiteConfigConfig',
+    'contact.apps.ContactConfig',
     'django.contrib.humanize',
     'widget_tweaks',
     'crispy_forms',
@@ -59,7 +64,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'shop.middleware.SaveIPAddressMiddleware',
 ]
+
+
 
 ROOT_URLCONF = 'config.urls'
 
@@ -134,13 +142,14 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
-CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 AUTH_USER_MODEL = 'account.User'
 
-
+#---
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
+#______________________-------email config-----___________________________
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
@@ -149,7 +158,7 @@ EMAIL_HOST_USER = 'amirrezanasiri830@gmail.com'
 EMAIL_HOST_PASSWORD = '09906475856'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-
+#______________________-------star retings config-----___________________________
 
 STAR_RATINGS_RERATE = True
 STAR_RATINGS_ANONYMOUS = False

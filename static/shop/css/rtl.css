@@ -32,3 +32,11 @@ body {
     margin-bottom: 10px;
     margin-right: 45px;
 }
+
+
+.nav-link{
+  margin-right: 3px
+}
+.btn.btn-outline-primary{
+  border-radius : 1.5rem;
+}

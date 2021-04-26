@@ -1,13 +1,16 @@
 {% extends 'shop/list.html' %}
 
 {% load base_tags %}
+{% load gravatar %}
 
 
 {% block slider %}
 {% endblock %}
 
 
-
+{% block search_1 %}{% endblock %}
+{% block search_2 %}{% endblock %}
+{% block search_3 %}{% endblock %}
 
 
 {% block header %}
@@ -35,8 +38,25 @@
 	{% url 'shop:author' author.username %}
 {% endblock %}
 
-
 {% block category_items %}
-	{% category_navbar %}
 {% endblock %}
 <!-- نکته : این جا نباید کتهگوری نشون بده باید خلاصه ای از رزمه رو نشون بده که بعدا باید بسازمش !  -->
+
+
+
+{% block sidebar_items %}
+	<img class="img-thumbnail rounded-bottom"
+		src="{% gravatar_url author.email 260%}"
+		alt="author profile picture">
+	<p>{{author.get_full_name}}</p>
+	<div class="text-justify">
+		<span class="border">سلام</span>
+		<p class="border">{{author.notes|linebreaks}}</p>	
+	</div>
+	<div class="text-justify">
+		<span class="border">تحصیلات</span>
+		<p class="border">{{author.Education|linebreaks}}</p>
+	</div>
+
+	{% popular_products %}
+{% endblock %}

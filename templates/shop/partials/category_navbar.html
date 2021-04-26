@@ -1,11 +1,18 @@
+{% extends 'shop/partials/sidbar_base.html' %}
 {% load base_tags %}
 
-<div class="col-lg-3">
-  <!-- دسته بندي ها  -->
-  <h1 class="my-4">{% title %}</h1>
-  <div class="list-group">
-    {% for cat in category %}
-      <a href="{% url 'shop:category' cat.slug %}" class="list-group-item">{{cat.title}}</a>
-    {% endfor %}
-  </div>
-</div>
+
+
+{% block title %}دسته بندی ها {% endblock %}
+
+
+{% block body %}
+
+	{% for cat in category %}
+		<a href="{% url 'shop:category' cat.slug %}" class="list-group-item">{{cat.title}}</a>
+	{% endfor %}
+
+
+{% endblock %}
+
+	

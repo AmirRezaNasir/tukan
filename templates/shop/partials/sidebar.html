@@ -1,0 +1,79 @@
+{% extends 'shop/partials/sidbar_base.html' %}
+{% load base_tags %}
+
+
+
+{% block title %}{{ title }}{% endblock %}
+
+
+
+{% block body %}
+
+
+	{% for p in products %}
+		<a class="list-group-item" href="{% url 'shop:productDetail' p.slug %}">{{p.title}}</a>
+	{% endfor %}
+
+
+	<form class="form-inline mt-3" action="{% url 'shop:search' %}">
+    	<input style="margin-right: 15px" type="search" name="q" class="form-control" placeholder="جستجوی متن">
+    	<button class="btn btn-success btn-lg btn-block" style="padding: 5px; border-radius: 10px; margin-top: 4px ; margin-right: 2px;">جستجو</button>
+	</form>
+
+<!-- فیلتر زبان فرانت اند  -->
+	<form class="form-inline mt-3" action="{% url 'shop:search' %}">
+    	<select autofocus style="margin-right: 15px" name="q" class="select form-control" required="" id="id_f_language">
+			<option value="">---------</option>
+
+			<option value="JAVASCRIPT_ANGULAR">جاوا اسکريپت - انگولار</option>
+
+			<option value="JAVASCRIPT_REACT">جاوا اسکريپت - ريکت</option>
+
+			<option value="JAVASCRIPT_VUE">جاوا اسکريپت - ويو جي اس </option>
+
+			<option value="JAVASCRIPT_AURELIA">جاوا اسکريپت - ارليا</option>
+
+			<option value="JAVASCRIPT_EMBER">جاوا اسکريپت - امبر</option>
+
+			<option value="JAVASCRIPT_OTHER_ITEMS" selected="">جاوا اسکريپت - باقي موارد</option>
+
+			<option value="HTML &amp; CSS">HTML &amp; CSS</option>
+
+		</select>
+    	<button class="btn btn-primary btn-lg btn-block" style="padding: 5px; border-radius: 10px; margin-top: 4px ; margin-right: 2px;">فیلتر  فرانت اند </button>
+	</form>
+	<!-- فیلتر زبان بک اند -->
+	<form class="form-inline mt-3" action="{% url 'shop:search' %}">
+    	<select autofocus  name="q" class="select form-control" required="" id="id_b_language">
+			<option value="">---------</option>
+
+			<option value="PYTHON_DJANGO">پايتون - جنگو</option>
+
+			<option value="PYTHON_FLASK">پايتون -فلسک</option>
+
+			<option value="PYTHON_OTHER_ITEMS">پايتون -باقي موارد</option>
+
+			<option value="PHP">پي اچ پي - لاراول</option>
+
+			<option value="PHP_OTHER_ITEMS">پي اچ پي - باقي موارد</option>
+
+			<option value="JAVASCRIPT_NODE">جاوا اسکريپت - نود جي اس </option>
+
+			<option value="JAVASCRIPT_REACT_NATIVE">جاوا اسکريپت - ريکت نتيو</option>
+
+			<option value="JAVASCRIPT_OTHER_ITEMS">جاوا اسکريپت - باقي موارد</option>
+
+			<option value="C_SH_ASP">سي شارپ - اي اس پي دات نت </option>
+
+			<option value="C_SH_OTHER_ITEMS">سي شارپ - باقي موارد</option>
+
+			<option value="GO">گو</option>
+			
+		</select>
+    	<button class="btn btn-warning btn-lg btn-block" style="padding: 5px; border-radius: 10px; margin-top: 4px ; margin-right: 2px;">فیلتر  بک اند  </button>
+	</form>
+
+
+{% endblock %}
+
+

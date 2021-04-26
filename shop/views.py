@@ -5,7 +5,8 @@ from account.mixins import AuthorAccessMixin
 from .models import Product,Category,Comment
 from .forms import CommentForm
 from account.models import User
-
+from django.db.models import Q
+from cart.forms import UserNewCartForm
 
 # Create your views here.
 class ProductList(ListView):
@@ -18,11 +19,19 @@ class ProductDetail(DetailView):
 	def get_object(self):
 		slug = self.kwargs.get('slug')
 		product = get_object_or_404(Product.objects.published(), slug=slug)
+
+
+		ip_address = self.request.user.ip_address
+		if ip_address not in product.hits.all():
+			product.hits.add(ip_address)
+		
 		return product
 
 
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
+		cart_form = UserNewCartForm(self.request.POST or None,initial={'product_id':self.object.id})
+		context['cart_form']= cart_form
 		context['comments'] = Comment.objects.filter(product=self.object,status=1)
 		if self.request.user.is_authenticated:
 			context['comment_form'] = CommentForm(instance=self.request.user)
@@ -60,7 +69,7 @@ class CategoryList(ListView):
 
 
 class AuthorList(ListView):
-	paginate_by = 5
+	paginate_by = 2
 	template_name = 'shop/author_list.html'
 
 
@@ -77,17 +86,17 @@ class AuthorList(ListView):
 		return context
 
 
-# class SearchList(ListView):
-# 	paginate_by = 1
-# 	template_name = 'blog/search_list.html'
+class SearchList(ListView):
+	paginate_by = 2
+	template_name = 'shop/search_list.html'
 
-# 	def get_queryset(self):
-# 		search = self.request.GET.get('q')
-# 		return Article.objects.filter(Q(description__icontains=search) | Q(title__icontains=search))
+	def get_queryset(self):
+		search = self.request.GET.get('q')
+		return Product.objects.filter(Q(description__icontains=search)| Q(f_language__icontains=search)| Q(b_language__icontains=search) | Q(title__icontains=search))
 
 
-# 	def get_context_data(self, **kwargs):
-# 		context = super().get_context_data(**kwargs)
-# 		context['search'] = self.request.GET.get('q')
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['search'] = self.request.GET.get('q')
 
-# 		return context
+		return context

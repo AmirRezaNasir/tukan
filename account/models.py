@@ -11,7 +11,7 @@ def one_day_hence():
 # Create your models here.
 class User(AbstractUser):
 	email = models.EmailField(unique=True, verbose_name='ایمیل')
-	notes  =  models.TextField(default='خوش باشيد' , max_length= 200,verbose_name='حرف براي گفتن')
+	notes  =  models.TextField(default='خوش باشيد' , max_length= 500,verbose_name='حرف براي گفتن')
 	Education  =  models.TextField(default='خود پرورش داده شده ' , max_length= 200,verbose_name='تحصيلات')
 	location  =  models.TextField(default='بدون ادرس' , max_length= 200,verbose_name='ادرس ')
 	skills  =  models.TextField(verbose_name='مهارت ها ',default='نوشته نشده')

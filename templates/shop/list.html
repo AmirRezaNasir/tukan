@@ -8,10 +8,17 @@
 
 
 {% block main %}
+  <div class="col-lg-3">
+  <br>
+    {% block category_items %}
+    {% endblock %}
+
+    {% block sidebar_items %}
+    {% endblock %}
+
+  </div>
 
 
-{% block category_items %}
-{% endblock %}
       <!-- /.col-lg-3 -->
 <!-- اسلاد عکس ها  -->
 
@@ -42,6 +49,10 @@
               </div>
             </div>
           </div>
+          {% empty %}
+            <div class="alert alert-dark" role="alert">
+              <p>متاسفانه در این صفحه محتوایی برای نمایش یافت نشد یا محتوایی برای نمایش هم اکنون وجود ندارد</p>
+            </div>
           {% endfor %}
 
         </div>
@@ -56,15 +67,15 @@
           <a class="btn btn-dark float-right" style="padding-right: 50px" href="{% block next_page_url %}{% endblock %}"> صفحه بعدی &larr;</a>
         {% endif %}<br>
         {% if page_obj.has_previous %}        
-        <a class="btn btn-outline-dark" href="{% block in_page1 %}{% endblock %}page/1">صفحه اول</a>
+        <a class="btn btn-outline-dark" href="{% block in_page1 %}{% endblock %}page/1{% block search_1 %}{% endblock %}">صفحه اول</a>
         {% endif %}
         {% if page_obj.has_next %}
-        <a class="btn btn-outline-dark" href="{% block in_page2 %}{% endblock %}page/{{page_obj.paginator.num_pages}}">صفحه آخر</a>
+        <a class="btn btn-outline-dark" href="{% block in_page2 %}{% endblock %}page/{{page_obj.paginator.num_pages}}{% block search_2 %}{% endblock %}">صفحه آخر</a>
         {% endif %}
         <hr>
         <span class="current badge badge-pill badge-secondary" style="margin-right: 35%">
           {% for num in page_obj.paginator.page_range  %}
-          <a class="btn" href="{% block number_page %}{% endblock %}page/{{num}}">{{num}}</a>
+          <a class="btn" href="{% block number_page %}{% endblock %}page/{{num}}{% block search_3 %}{% endblock %}">{{num}}</a>
           {% endfor %}   
         </span><hr>
 <!-- end pagination  -->

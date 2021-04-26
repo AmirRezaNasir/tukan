@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Product,Category,Comment
+from .models import Product,Category,Comment,IPAddress
 # Register your models here.
 
 
@@ -35,4 +35,9 @@ class CommentAdmin(admin.ModelAdmin):
 
 	def approve_comments(self, request, queryset):
 		queryset.update(status=True)       
+
+
 admin.site.register(Comment,CommentAdmin)
+
+
+admin.site.register(IPAddress)
