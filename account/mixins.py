@@ -26,7 +26,7 @@ class FormValidMixin():
 class AuthorAccessMixin():
 	def dispatch(self, request, pk, *args, **kwargs):
 		product = get_object_or_404(Product, pk=pk)
-		if product.author == request.user and product.email == request.user.email and product.phone_number == request.phone_number and product.status in ['b', 'd'] or\
+		if product.author == request.user and product.email == request.user.email and product.phone_number == request.user.phone_number and product.status in ['b', 'd'] or\
 		request.user.is_superuser:
 			return super().dispatch(request, *args, **kwargs)
 		else:
