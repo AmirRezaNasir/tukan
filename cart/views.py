@@ -30,7 +30,7 @@ def add_user_cart(request):
 			# todo: redirect user to user panel
 			# return redirect('/user/orders')
 			return redirect("cart:user-cart")
-	return redirect("shop:productDetail")
+	return redirect("shop:productList")
 
 
 @login_required()

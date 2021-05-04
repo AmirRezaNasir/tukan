@@ -2,8 +2,33 @@
 {% load static %}
 {% load widget_tweaks %}
 
-{% block form_title %}ایجاد اکانت نو{% endblock %} 
+{% block error %}
 
+{% if form.password1.errors %}
+	{{form.password1.errors}}
+{% endif %}
+
+{% if form.password2.errors %}
+	{{form.password2.errors}}
+{% endif %}
+
+{% if form.email.errors %}
+	{{form.email.errors}}
+{% endif %}
+
+{% if form.phone_number.errors %}
+	{{form.phone_number.errors}}
+{% endif %}
+
+{% if form.username.errors %}
+	{{form.username.errors}}
+{% endif %}
+
+{% endblock %}
+
+
+
+{% block form_title %}ایجاد اکانت نو{% endblock %} 
 
 {% block form_div1 %}
 	<div class="wrap-input100 validate-input" data-validate = "Password is required">
@@ -11,12 +36,10 @@
 	<span class="focus-input100" data-placeholder="تایید گزرواژه"></span>
 
 	<span class="symbol-input100">
-		<i class="fa fa-lock myrtl " aria-hidden="true"></i>
+		<i class="fa fa-user-o" aria-hidden="true"></i>
 	</span>
 </div>
 {% endblock %}	
-
-
 
 {% block form_div2 %}
 <div class="wrap-input100 validate-input" data-validate = "Password is required">
@@ -54,6 +77,19 @@
 </div>
 {% endblock %}
 
+{% block form_div5 %}
+
+<div class="wrap-input100 validate-input" data-validate = "Password is required">
+	{% block form_name5 %}
+		{{form.phone_number|add_class:"input100"}}
+	{% endblock %}
+	<span class="focus-input100" data-placeholder="تایید گزرواژه"></span>
+
+	<span class="symbol-input100">
+		<i class="fa fa-phone" aria-hidden="true"></i>
+	</span>
+</div>
+{% endblock %}
 
 
 {% block btn_name %} ایجاد {% endblock %}

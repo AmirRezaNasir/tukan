@@ -33,10 +33,14 @@
 					<img src="{% static 'registration/Login/images/img_khar.png' %}" alt="IMG">
 				</div>
 
-				<form class="login100-form validate-form" method="post">{% csrf_token %}
+				<form class="login100-form validate-form" method="post">
+					{% csrf_token %}
 					<span class="login100-form-title myfont">
 						  {% block form_title %}{% endblock %} 
 					</span>
+
+					<p>{% block error %}{% endblock %}</p>
+					
 
 					{% block form_div1 %}
 						{% block form_name1 %}{% endblock %}
@@ -55,7 +59,14 @@
 
 					{% block form_div4 %}
 						{% block form_name4 %}{% endblock %}
-					{% endblock %}					
+					{% endblock %}
+
+
+					{% block form_div5 %}
+						{% block form_name5 %}{% endblock %}
+					{% endblock %}
+
+
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn myfont">
 							{% block btn_name %}{% endblock %}

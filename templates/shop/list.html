@@ -6,6 +6,8 @@
 
 {% load humanize %}
 
+{% load ratings %}
+
 
 {% block main %}
   <div class="col-lg-3">
@@ -38,13 +40,12 @@
                 <h4 class="card-title">
                   <a href="{% url 'shop:productDetail' product.slug %}">{{product.title}}</a>
                 </h4>
-                <h5>{{product.price|intword}}</h5>
+                <h5>{{product.price|intword}} ریال </h5>
                 <p class="card-text">{{product.short_explanation|striptags|truncatewords:23}}</p>
               </div>
               <div class="card-footer">
                 <time>{{product.publish|naturaltime}}</tim>
-                <small class="text-muted" >&#9733; &#9733; &#9734; &#9734; &#9734;</small>
-                <hr><a href="{% url 'shop:author' product.author %}">{{product.author}}</a>
+                <hr><a href="{% url 'shop:author' product.author %}"> نویسنده :{{product.author}}</a>
                 
               </div>
             </div>

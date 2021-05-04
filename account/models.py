@@ -2,10 +2,13 @@ from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator
 from django.contrib.auth.models import AbstractUser
+from django.core.validators import RegexValidator
+
+
 
 
 def one_day_hence():
-    return timezone.now() + timezone.timedelta(days=1)
+	return timezone.now() + timezone.timedelta(days=1)
 
 
 # Create your models here.
@@ -15,7 +18,8 @@ class User(AbstractUser):
 	Education  =  models.TextField(default='خود پرورش داده شده ' , max_length= 200,verbose_name='تحصيلات')
 	location  =  models.TextField(default='بدون ادرس' , max_length= 200,verbose_name='ادرس ')
 	skills  =  models.TextField(verbose_name='مهارت ها ',default='نوشته نشده')
-	phone_number  =  models.IntegerField(default='00000000000',validators=[MaxValueValidator(9999999999)], verbose_name='شماره تلفن')
+	phone_regex = RegexValidator(regex=r'^\+?1?\d{11,11}$', message="شماره تلفن شما معتبر نیست ان را به درستی لطفا وارد کنید")
+	phone_number = models.CharField(validators=[phone_regex], max_length=11, blank=True) # validators should be a list
 	is_author  =  models.BooleanField(default=False, verbose_name="وضعیت نویسندگی")
 	special_user  =  models.DateTimeField(default=timezone.now, verbose_name="کاربر ویژه تا")
 	Guest_user  =  models.DateTimeField(default=one_day_hence, verbose_name="کاربر مهمان تا")

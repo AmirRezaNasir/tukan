@@ -139,6 +139,7 @@ class Register(CreateView):
 	def form_valid(self, form):
 		user = form.save(commit=False)
 		user.is_active = False
+		user.phone_number = form.cleaned_data.get('phone_number')
 		user.save()
 		current_site = get_current_site(self.request)
 		mail_subject = 'فعال سازی اکانت'

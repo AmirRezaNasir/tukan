@@ -29,9 +29,9 @@ LOGIN_URL = "login"
 SECRET_KEY = '3!3yk^-m6gfn+i-8m97!p=u)25w!%i#=ng3h#5fxmmp$w5j%u='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['tukan-nasiri.fandogh.cloud',]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -95,13 +95,11 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': '######',
-        'USER': '######',
-        'PASSWORD': '######',
-        'HOST': '######',
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
